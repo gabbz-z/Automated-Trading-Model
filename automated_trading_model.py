@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 # Load the dataset
-file_path = 'XAUUSD_2010--2023.csv'  # Update with your file path
+file_path = 'XAUUSD_2010--2023.csv' 
 data = pd.read_csv(file_path)
 
-# Convert 'Date' column to datetime format
+# Converting 'Date' column to datetime format
 data['Date'] = pd.to_datetime(data['Date'])
 
 # Feature Engineering: Add technical indicators
@@ -22,7 +22,7 @@ data['RSI'] = 100 - (100 / (1 + data['Adj Close'].diff(1).apply(lambda x: max(x,
                             data['Adj Close'].diff(1).apply(lambda x: -min(x, 0)).rolling(window=14).mean()))
 data['Volatility'] = data['High'] - data['Low']  # Daily price range (High - Low)
 
-# Drop rows with NaN values created by rolling windows
+# Dropping rows with NaN values created by rolling windows
 data.dropna(inplace=True)
 
 # Prepare data for LSTM
