@@ -7,24 +7,21 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM, Dropout
 import matplotlib.pyplot as plt
 
-# Load your dataset
-file_path = 'SP_2000.csv'  # Update this with your actual file path
+# Loading dataset
+file_path = 'SP_2000.csv'  
 data = pd.read_csv(file_path)
 
-# Convert the 'Date' column to datetime if available (uncomment if applicable)
-# data['Date'] = pd.to_datetime(data['Date'])
-# data.set_index('Date', inplace=True)
 
 # Ensure the necessary columns exist
 print(data.columns)
 
 # Select relevant columns for processing
-prices = data[['Adj Close']]  # Replace 'Adj Close' with the correct column name if different
+prices = data[['Adj Close']]  
 
-# Feature Engineering: Add Moving Averages and Volatility (optional, adjust as needed)
+# Feature Engineering: Add Moving Averages and Volatility 
 prices['SMA_20'] = prices['Adj Close'].rolling(window=20).mean()
 prices['EMA_20'] = prices['Adj Close'].ewm(span=20, adjust=False).mean()
-prices['Volatility'] = data['High'] - data['Low']  # Replace with correct column names
+prices['Volatility'] = data['High'] - data['Low'] 
 
 # Drop rows with NaN values after feature engineering
 prices.dropna(inplace=True)
